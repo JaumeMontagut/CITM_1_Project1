@@ -19,7 +19,11 @@ int main (int argc, char* argv[])
 	bool playing;
 	bool hasMoved;
 	int randNum;
+<<<<<<< HEAD
 	const Uint8 * keystate;
+=======
+	bool pressingW = false;
+>>>>>>> parent of fd49895... Second version of the movement (not working)
 
 	SDL_Init(SDL_INIT_VIDEO);
 
@@ -41,13 +45,15 @@ int main (int argc, char* argv[])
 
 	srand(time(NULL));
 
+
 	while(playing == true)
 	{
 		//Commands
-		if(SDL_PollEvent(&event))
+		while (SDL_PollEvent(&event) != 0)
 		{
 			if(event.type == SDL_QUIT)
 			{
+<<<<<<< HEAD
 				playing = false;
 			}
 		}
@@ -71,6 +77,30 @@ int main (int argc, char* argv[])
 			rect.x++;
 		}
 
+=======
+				playing == false;
+			}
+			else if(event.type == SDL_KEYDOWN)//Només detecta el Keydown aixi
+			{
+				if(event.key.keysym.sym == SDLK_w)
+				{
+					rect.y--;
+				}
+				if(event.key.keysym.sym == SDLK_a)
+				{
+					rect.x--;
+				}
+				if(event.key.keysym.sym == SDLK_s)
+				{
+					rect.y++;
+				}
+				if(event.key.keysym.sym == SDLK_d)
+				{
+					rect.x++;
+				}
+			}
+		}
+>>>>>>> parent of fd49895... Second version of the movement (not working)
 		//Mirar que no surti de la pantalla
 
 		//Rendering
