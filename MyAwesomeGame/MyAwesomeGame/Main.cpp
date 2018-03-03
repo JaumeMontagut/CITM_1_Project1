@@ -19,7 +19,7 @@ int main (int argc, char* argv[])
 	bool playing;
 	bool hasMoved;
 	int randNum;
-	bool keyPressed[323] = { false };
+	const Uint8 * keystate;
 
 	SDL_Init(SDL_INIT_VIDEO);
 
@@ -50,29 +50,23 @@ int main (int argc, char* argv[])
 			{
 				playing = false;
 			}
-			if(event.type == SDL_KEYDOWN)
-			{
-				keyPressed[event.key.keysym.sym] = true;
-			}
-			if(event.type == SDL_KEYUP)
-			{
-				keyPressed[event.key.keysym.sym] = false;
-			}
 		}
 
-		if(keyPressed[SDLK_UP] == true)
+		keystate = SDL_GetKeyboardState(NULL);
+
+		if(keystate[SDL_SCANCODE_UP])
 		{
 			rect.y--;
 		}
-		if (keyPressed[SDLK_LEFT] == true)
+		if (keystate[SDL_SCANCODE_LEFT])
 		{
 			rect.x--;
 		}
-		if (keyPressed[SDLK_DOWN] == true)
+		if (keystate[SDL_SCANCODE_DOWN])
 		{
 			rect.y++;
 		}
-		if (keyPressed[SDLK_RIGHT] == true)
+		if (keystate[SDL_SCANCODE_RIGHT])
 		{
 			rect.x++;
 		}
