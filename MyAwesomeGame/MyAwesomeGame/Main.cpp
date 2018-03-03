@@ -15,10 +15,11 @@ int main (int argc, char* argv[])
 	SDL_Window * window;
 	SDL_Renderer* renderer;
 	SDL_Rect rect;
+	SDL_Event event;
 	bool playing;
 	bool hasMoved;
 	int randNum;
-
+	bool pressingW = false;
 
 	SDL_Init(SDL_INIT_VIDEO);
 
@@ -43,32 +44,36 @@ int main (int argc, char* argv[])
 
 	while(playing == true)
 	{
-		do
+		//Commands
+		while (SDL_PollEvent(&event) != 0)
 		{
-			hasMoved = 0;
-			randNum = rand() % 4;
-			if (randNum == 0 && rect.x < SCREENWITDH - RECTWITDH)
+			if(event.type == SDL_QUIT)
 			{
-				rect.x++;
-				hasMoved = 1;
+				playing == false;
 			}
-			else if(randNum == 1 && rect.y < SCREENHEIGHT - RECTHEIGHT)
+			else if(event.type == SDL_KEYDOWN)//Només detecta el Keydown aixi
 			{
-				rect.y++;
-				hasMoved = 1;
+				if(event.key.keysym.sym == SDLK_w)
+				{
+					rect.y--;
+				}
+				if(event.key.keysym.sym == SDLK_a)
+				{
+					rect.x--;
+				}
+				if(event.key.keysym.sym == SDLK_s)
+				{
+					rect.y++;
+				}
+				if(event.key.keysym.sym == SDLK_d)
+				{
+					rect.x++;
+				}
 			}
-			else if (randNum == 2 && rect.x > 0)
-			{
-				rect.x--;
-				hasMoved = 1;
-			}
-			else if (randNum == 3 && rect.y > 0)
-			{
-				rect.y--;
-				hasMoved = 1;
-			}
-		} while (hasMoved = 0);
+		}
+		//Mirar que no surti de la pantalla
 
+		//Rendering
 		SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255);
 		SDL_RenderClear(renderer);
 
