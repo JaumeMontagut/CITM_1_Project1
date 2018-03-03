@@ -19,7 +19,7 @@ int main (int argc, char* argv[])
 	bool playing;
 	bool hasMoved;
 	int randNum;
-	bool pressingW = false;
+	bool keyPressed[323] = { false };
 
 	SDL_Init(SDL_INIT_VIDEO);
 
@@ -41,36 +41,42 @@ int main (int argc, char* argv[])
 
 	srand(time(NULL));
 
-
 	while(playing == true)
 	{
 		//Commands
-		while (SDL_PollEvent(&event) != 0)
+		if(SDL_PollEvent(&event))
 		{
 			if(event.type == SDL_QUIT)
 			{
-				playing == false;
+				playing = false;
 			}
-			else if(event.type == SDL_KEYDOWN)//Només detecta el Keydown aixi
+			if(event.type == SDL_KEYDOWN)
 			{
-				if(event.key.keysym.sym == SDLK_w)
-				{
-					rect.y--;
-				}
-				if(event.key.keysym.sym == SDLK_a)
-				{
-					rect.x--;
-				}
-				if(event.key.keysym.sym == SDLK_s)
-				{
-					rect.y++;
-				}
-				if(event.key.keysym.sym == SDLK_d)
-				{
-					rect.x++;
-				}
+				keyPressed[event.key.keysym.sym] = true;
+			}
+			if(event.type == SDL_KEYUP)
+			{
+				keyPressed[event.key.keysym.sym] = false;
 			}
 		}
+
+		if(keyPressed[SDLK_UP] == true)
+		{
+			rect.y--;
+		}
+		if (keyPressed[SDLK_LEFT] == true)
+		{
+			rect.x--;
+		}
+		if (keyPressed[SDLK_DOWN] == true)
+		{
+			rect.y++;
+		}
+		if (keyPressed[SDLK_RIGHT] == true)
+		{
+			rect.x++;
+		}
+
 		//Mirar que no surti de la pantalla
 
 		//Rendering
