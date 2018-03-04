@@ -13,10 +13,10 @@ int main (int argc, char* argv[])
 	SDL_Rect projectile;
 	SDL_Event event;
 	bool playing;
-	bool pressingW = false;
-	bool pressingA = false;
-	bool pressingS = false;
-	bool pressingD = false;
+	bool pressingUp = false;
+	bool pressingLeft = false;
+	bool pressingDown = false;
+	bool pressingRight = false;
 
 	//Inicialization
 	SDL_Init(SDL_INIT_VIDEO);
@@ -48,21 +48,21 @@ int main (int argc, char* argv[])
 			}
 			if(event.type == SDL_KEYDOWN)
 			{
-				if (event.key.keysym.sym == SDLK_w)
+				if (event.key.keysym.sym == SDLK_UP)
 				{
-					pressingW = true;
+					pressingUp = true;
 				}
-				if (event.key.keysym.sym == SDLK_a)
+				if (event.key.keysym.sym == SDLK_LEFT)
 				{
-					pressingA = true;
+					pressingLeft = true;
 				}
-				if (event.key.keysym.sym == SDLK_s)
+				if (event.key.keysym.sym == SDLK_DOWN)
 				{
-					pressingS = true;
+					pressingDown = true;
 				}
-				if (event.key.keysym.sym == SDLK_d)
+				if (event.key.keysym.sym == SDLK_RIGHT)
 				{
-					pressingD = true;
+					pressingRight = true;
 				}
 				if(event.key.keysym.sym == SDLK_SPACE)
 				{
@@ -72,39 +72,39 @@ int main (int argc, char* argv[])
 			}
 			if (event.type == SDL_KEYUP)
 			{
-				if(event.key.keysym.sym == SDLK_w)
+				if(event.key.keysym.sym == SDLK_UP)
 				{
-					pressingW = false;
+					pressingUp = false;
 				}
-				if (event.key.keysym.sym == SDLK_a)
+				if (event.key.keysym.sym == SDLK_LEFT)
 				{
-					pressingA = false;
+					pressingLeft = false;
 				}
-				if (event.key.keysym.sym == SDLK_s)
+				if (event.key.keysym.sym == SDLK_DOWN)
 				{
-					pressingS = false;
+					pressingDown = false;
 				}
-				if (event.key.keysym.sym == SDLK_d)
+				if (event.key.keysym.sym == SDLK_RIGHT)
 				{
-					pressingD = false;
+					pressingRight = false;
 				}
 			}
 		}
 
 		//Movement
-		if (pressingW == true && rect.y > 0)
+		if (pressingUp == true && rect.y > 0)
 		{
 			rect.y--;
 		}
-		if (pressingA == true && rect.x > 0)
+		if (pressingLeft == true && rect.x > 0)
 		{
 			rect.x--;
 		}
-		if (pressingS == true && rect.y < SCREENHEIGHT - RECTHEIGHT)
+		if (pressingDown == true && rect.y < SCREENHEIGHT - RECTHEIGHT)
 		{
 			rect.y++;
 		}
-		if (pressingD == true && rect.x < SCREENWITDH - RECTWITDH)
+		if (pressingRight == true && rect.x < SCREENWITDH - RECTWITDH)
 		{
 			rect.x++;
 		}
@@ -127,6 +127,7 @@ int main (int argc, char* argv[])
 		SDL_RenderPresent(renderer);
 	}
 
+	//Quit
 	SDL_DestroyWindow(window);
 	SDL_Quit();
 	return 0;
