@@ -15,15 +15,14 @@ int main (int argc, char* argv[])
 	SDL_Window * window;
 	SDL_Renderer* renderer;
 	SDL_Rect rect;
+	SDL_Rect projectile;
 	SDL_Event event;
 	bool playing;
 	bool hasMoved;
 	int randNum;
-<<<<<<< HEAD
 	const Uint8 * keystate;
-=======
-	bool pressingW = false;
->>>>>>> parent of fd49895... Second version of the movement (not working)
+	bool pressingKey[1000] = { false };
+
 
 	SDL_Init(SDL_INIT_VIDEO);
 
@@ -41,6 +40,11 @@ int main (int argc, char* argv[])
 	rect.w = RECTWITDH;
 	rect.h = RECTHEIGHT;
 	
+	projectile.x = 0;
+	projectile.y = 0;
+	projectile.w = 10;
+	projectile.h = 5;
+
 	playing = true;
 
 	srand(time(NULL));
@@ -48,60 +52,53 @@ int main (int argc, char* argv[])
 
 	while(playing == true)
 	{
+		//1- SDL_PollEvent();
+		//2- KeyboardEvent
+		//3- Key_Up...
+
 		//Commands
 		while (SDL_PollEvent(&event) != 0)
 		{
 			if(event.type == SDL_QUIT)
 			{
-<<<<<<< HEAD
 				playing = false;
+			}
+			if(event.type == SDL_KEYDOWN)
+			{
+				pressingKey[event.key.keysym.sym] = true;
+			}
+			if (event.type == SDL_KEYUP)
+			{
+				pressingKey[event.key.keysym.sym] = false;
 			}
 		}
 
-		keystate = SDL_GetKeyboardState(NULL);
-
-		if(keystate[SDL_SCANCODE_UP])
+		if (pressingKey[SDLK_UP] == true)
 		{
 			rect.y--;
 		}
-		if (keystate[SDL_SCANCODE_LEFT])
+		if (pressingKey[SDLK_LEFT] == true)
 		{
 			rect.x--;
 		}
-		if (keystate[SDL_SCANCODE_DOWN])
+		if (pressingKey[SDLK_DOWN] == true)
 		{
 			rect.y++;
 		}
-		if (keystate[SDL_SCANCODE_RIGHT])
+		if (pressingKey[SDLK_RIGHT] == true)
 		{
 			rect.x++;
 		}
 
-=======
-				playing == false;
-			}
-			else if(event.type == SDL_KEYDOWN)//Només detecta el Keydown aixi
-			{
-				if(event.key.keysym.sym == SDLK_w)
-				{
-					rect.y--;
-				}
-				if(event.key.keysym.sym == SDLK_a)
-				{
-					rect.x--;
-				}
-				if(event.key.keysym.sym == SDLK_s)
-				{
-					rect.y++;
-				}
-				if(event.key.keysym.sym == SDLK_d)
-				{
-					rect.x++;
-				}
-			}
-		}
->>>>>>> parent of fd49895... Second version of the movement (not working)
 		//Mirar que no surti de la pantalla
+
+		////If KeyDown
+		//projectile.x = rect.x + RECTHEIGHT / 2;
+		//projectile.y = rect.y + RECTWITDH / 2;
+		//SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
+		//SDL_RenderFillRect(renderer, &projectile);
+		//projectile.x++;
+		////Borrar el missil un cop para
 
 		//Rendering
 		SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255);
@@ -112,7 +109,6 @@ int main (int argc, char* argv[])
 
 		SDL_RenderPresent(renderer);
 	}
-
 
 	SDL_DestroyWindow(window);
 	SDL_Quit();
