@@ -1,15 +1,8 @@
 #include "../SDL/include/SDL.h"
 #include <iostream>
-#include <time.h>
 #include "Header.h"
-
 #pragma comment (lib,"../SDL/libx86/SDL2.lib")
 #pragma comment (lib,"../SDL/libx86/SDL2main.lib")
-
-#define SCREENWITDH 640
-#define SCREENHEIGHT 480
-#define RECTWITDH 40
-#define RECTHEIGHT 20
 
 int main (int argc, char* argv[])
 {
@@ -43,7 +36,6 @@ int main (int argc, char* argv[])
 	projectile.w = 10;
 	projectile.h = 5;
 	playing = true;
-	srand(time(NULL));
 
 	while(playing == true)
 	{
